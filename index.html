@@ -123,6 +123,7 @@
 		const sorted = "#CBFF65";
 		const unsorted = "#FE5448";
 		const maxheight = 300;
+        const scallingfactor = 1.2;
 		let arr = [];
 		let arrCopy = [];
 		let isSorting = false;
@@ -174,7 +175,7 @@
 			for (let i = 0; i < arr.length; i++) {
 				const bar = document.createElement("div");
 				bar.className = "bar";
-				bar.style.height = `${(arr[i]/Math.max(...arr)) * maxheight}px`;
+				bar.style.height = `${(arr[i]/(Math.max(...arr)*scallingfactor)) * maxheight}px`;
 				bar.style.width = `${Math.max(((chart.clientWidth - 4*arr.length) / arr.length), 2)}px`;
 				if( i >= n_){
 					bar.style.backgroundColor = sorted;
