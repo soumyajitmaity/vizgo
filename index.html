@@ -9,7 +9,7 @@
 			background-color : #121212;
 			color : white;
 		}
-		 #chart {
+		 #chart, #chart1, #chart3{
 			background-color : #3b3b3b;
       display: flex;
       align-items: flex-end;
@@ -100,18 +100,28 @@
 		
 		
 		
+		
 			<div>bubble sort</div>
+			
+			<div id= "chart1">
+			<div id="bar"></div>
+			</div>
+			<div>selection sort</div>
+			
+			<div id= "chart3">
+			<div id="bar"></div>
+			</div>
+			<div>quick sort</div>
+			
+			
+			
 			<label style="font-size : 30px">speed</label> 
 			<input type="number" min=50 id="speed">
-			<button class="mybutton" onclick="sort()">start</button>
+			<button class="mybutton" onclick="sort(arr)">start</button>
 			<button class="mybutton" id="stopbutton" onclick="stopStartFlip()">stop</button>
 			<button class="mybutton" onclick="reset()">reset</button>
 			
 		</center>
-		
-		<div id= "chart1">
-			<div id="bar1"awdawd</div>
-		</div>
 		
 		
 		
@@ -123,25 +133,31 @@
 		const sorted = "#CBFF65";
 		const unsorted = "#FE5448";
 		const maxheight = 300;
-        const scallingfactor = 1.2;
+    const scallingfactor = 1.2;
 		let arr = [];
 		let arrCopy = [];
 		let isSorting = false;
 		let isstopping = false;
 		//const speed = 200;
 		const chart = document.getElementById("chart");
+		const chart2 = document.getElementById("chart1");
+		const chart3 = document.getElementById("chart3");
+		
 	
-		function stopStartFlip(){
-			if (!isstopping){
-				document.getElementById("stopbutton").innerText= "resume";
-				isstopping = true;
-				isSorting = false;
-			}else{
-				isstopping = false;
-				document.getElementById("stopbutton").innerText= "stop";
-				
-			}
-			
+		let arrCopy2 = [];
+		let arrCopy3 = [];
+		function gaussianRandom(mean = 0, stdDev = 1) {
+    let u = 1 - Math.random(); // Subtract from 1 to avoid log(0)
+    let v = Math.random();
+    let z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    return z * stdDev + mean;
+}
+		function generateGaussianArray(size, mean = 50, stdDev = 10) {
+				let arr = [];
+				for (let i = 0; i < size; i++) {
+						arr.push(Math.round(gaussianRandom(mean, stdDev)));
+				}
+				return arr;
 		}
 		
 		function generate(){
@@ -150,10 +166,15 @@
 			const max = parseInt(document.getElementById("max").value);
 			console.log(numberOfElements + ", " + min + ", " + max);
 			if (min < max) {
-				arr = generateRandomArray(numberOfElements, min, max);
+				//arr = generateRandomArray(numberOfElements, min, max);
+				arr = generateGaussianArray(numberOfElements);
 				console.log(...arr);
 				arrCopy = [...arr];
-				renderChart(arrCopy);
+				arrCopy2 = [...arr];
+				arrCopy3 = [...arr];
+				renderChart(chart,arrCopy);
+				renderChart(chart2,arrCopy2);
+				renderChart(chart3,arrCopy3);
 			} else {
 				alert("Minimum value must be smaller than maximum value");
 			}
@@ -170,30 +191,35 @@
 			return arr;
 		}
 		
-		function renderChart(arr, n_ = arr.length+1){
-			chart.innerHTML = "";
+		function renderChart(chart_, arr, left = -1, right=-1){
+			chart_.innerHTML = "";
 			for (let i = 0; i < arr.length; i++) {
 				const bar = document.createElement("div");
 				bar.className = "bar";
 				bar.style.height = `${(arr[i]/(Math.max(...arr)*scallingfactor)) * maxheight}px`;
 				bar.style.width = `${Math.max(((chart.clientWidth - 4*arr.length) / arr.length), 2)}px`;
-				if( i >= n_){
+				if( i >= left && i <= right){
 					bar.style.backgroundColor = sorted;
 				}else{
 					bar.style.backgroundColor = unsorted;
 				
 				}
-				//bar.textContent = arr[i];
-				chart.appendChild(bar);
+				chart_.appendChild(bar);
 			}
 		
 		}
 		
 		
 		async function sort(){
-			if (!isSorting) {
+			let n = arr.length-1;
+			if (isSorting == false) {
 				isSorting = true;
-				await new Promise(resolve=>sort_());
+				await sort_(arr);
+				await selectionSort(arrCopy2);
+				await quickSort(arrCopy3, 0,n);
+				
+				
+				
 				isSorting = false;
 			}else{
 				alert("sorting is ongoing!");
@@ -211,9 +237,11 @@
 						arr[i+1] = temp;
 						
 						}
+						
 					}
-					renderChart(arr, n);
-						await new Promise(resolve => setTimeout(resolve, 100/speed));
+					renderChart(chart, arr, n, arr.length);
+					await new Promise(resolve => setTimeout(resolve, 2));
+					
 					
 			}
 			
@@ -221,13 +249,69 @@
 		function reset(){
 				isSorting = false;
 				arr = [...arrCopy];
-				renderChart(arr);
+				arrCopy2 = [...arrCopy];
+				arrCopy3 = [...arrCopy3];
+				renderChart(chart, arr);
+				renderChart(chart2, arr);
+				renderChart(chart3, arr);
 		}
 		
-		function quicksort([...arrCopy]){
-			
-		}
+		async function selectionSort(arr){
+            let n = arr.length;
+            for (let i = 0; i < n; i++){
+                let min_index = i;
+                for (let j = i+1; j < n; j++){
+                    if(arr[min_index] > arr[j]){
+                        min_index = j;
+												
+                    }
+                }
+								renderChart(chart2, arr, 0,i);
+								await new Promise(resolve => setTimeout(resolve, 2));
+
+                if (min_index != i){
+                    let temp = arr[i];
+                    arr[i] = arr[min_index];
+                    arr[min_index] = temp;
+										
+										
+                }
+               
+                }
+        }
 		
+        function findpivot(arr, low, high){
+					
+					if (low <= high){
+					let pivotIndex = low;
+					let i = low + 1;
+					let j = high;
+					while (i < j){
+						
+						while(arr[pivotIndex] >= arr[i] && i <= high) i++;
+						while(arr[pivotIndex] <=arr[j] && j>=low+1) j--;
+						if (i < j) [arr[i], arr[j]] = [arr[j], arr[i]];
+					}
+					if (pivotIndex < j)[arr[pivotIndex], arr[j]] = [arr[j], arr[pivotIndex]];
+					return j;
+					
+					}
+				}
+				 async function quickSort(arr, low, high){
+					
+					if (low < high){
+							let pivot = findpivot(arr, low, high);
+							
+							
+							
+							await quickSort(arr, low, pivot-1);
+							await quickSort(arr, pivot+1, high);
+						
+					}
+					
+					renderChart(chart3, arr);
+					await new Promise (resolve => setTimeout(resolve, 10));
+				}
 		
 		</script>
 	</body>
