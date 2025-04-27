@@ -1,139 +1,146 @@
 <html>
 
-	<head>
-		<title>bubble sort</title>
-		<link href="https://fonts.googleapis.com/css?family=Fira Code" rel="stylesheet">
-		<style>
+<head>
+	<title>bubble sort</title>
+	<link href="https://fonts.googleapis.com/css?family=Fira Code" rel="stylesheet">
+	<style>
 		body {
-			font-family : 'Fira Code',  'sans-serif';
-			background-color : #121212;
-			color : white;
+			font-family: 'Fira Code', 'sans-serif';
+			background-color: #121212;
+			color: white;
 		}
-		 #chart, #chart1, #chart3{
-			background-color : #3b3b3b;
-      display: flex;
-      align-items: flex-end;
-      border: 1px solid black;
-			height : 300px;
-			}
-			.bar {
-      width: 20px;
-			height:100px;
-      margin: 2px;
-      background-color: red;
-      text-align: center;
-      color: white;
-    }
-		
-		
-		.form{
-			background-color : black;
-			height : auto;
-			color : white;
-			padding : 20px;
-			align-items : center;
-			font-size : 15px;
-			
-			
+
+		#chart,
+		#chart1,
+		#chart3 {
+			background-color: #3b3b3b;
+			display: flex;
+			align-items: flex-end;
+			border: 1px solid black;
+			height: 300px;
 		}
-		input{
-			background-color	: gray;
-			color : white;
-			height : 30px;
-			width : 100px;
-			border-radius : 10px;
-			margin : 20px;
-			padding : 20px;
-			border : none;
+
+		.bar {
+			width: 20px;
+			height: 100px;
+			margin: 2px;
+			background-color: red;
+			text-align: center;
+			color: white;
 		}
-		input:focus{
-			border : 1px;
-			border-color : green;
-		}
-		.inputform{
-			padding-right : 30px;
-		}
-		
-		button{
-			font-family : 'Fira Code',  'sans-serif';
-			padding : 5px;
-			border-radius : 10px;
+
+
+		.form {
+			background-color: black;
+			height: auto;
+			color: white;
+			padding: 20px;
+			align-items: center;
 			font-size: 15px;
-			height : auto;
-			width : auto;
-			background-color : #FEB65B;
-			font-weight : 'bold';
-			border : none;
-			
+
+
 		}
-		
-		input{
-			font-size : 20px;
+
+		input {
+			background-color: gray;
+			color: white;
+			height: 30px;
+			width: 100px;
+			border-radius: 10px;
+			margin: 20px;
+			padding: 20px;
+			border: none;
 		}
-		</style>
-	</head>
-		
-	<body>
-		<center>
+
+		input:focus {
+			border: 1px;
+			border-color: green;
+		}
+
+		.inputform {
+			padding-right: 30px;
+		}
+
+		button {
+			font-family: 'Fira Code', 'sans-serif';
+			padding: 5px;
+			border-radius: 10px;
+			font-size: 15px;
+			height: auto;
+			width: auto;
+			background-color: #FEB65B;
+			font-weight: 'bold';
+			border: none;
+
+		}
+
+		input {
+			font-size: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<center>
 		<div class="form">
 			<h2>Sorting Visualizer</h2>
-			 <form class="inputform" onsubmit="event.preventDefault()">
-      <label>Number of elements: </label>
-      <input type="number" id="numberofelements" min=2 max=1000 required>
+			<form class="inputform" onsubmit="event.preventDefault()">
+				<label>Number of elements: </label>
+				<input type="number" id="numberofelements" min=2 max=1000 required>
 
-      <label>Minimum value: </label>
-      <input type="number" id="min" min="-1000" max="1000" required>
+				<label>Minimum value: </label>
+				<input type="number" id="min" min="-1000" max="1000" required>
 
-      <label>Maximum value: </label>
-      <input type="number" id="max" min="parseInt(document.getElementById("min").value) + 10"required>
-			
-     
-      <button type="button" onclick="generate()">Generate Data</button>
-    </form>
-			
+				<label>Maximum value: </label>
+				<input type="number" id="max" min="parseInt(document.getElementById(" min").value) + 10"required>
+
+
+				<button type="button" onclick="generate()">Generate Data</button>
+			</form>
+
 		</div>
-		
-		
-		<div id= "chart">
+
+
+		<div id="chart">
 			<div id="bar"></div>
 		</div>
-		
-		
-		
-		
-			<div>bubble sort</div>
-			
-			<div id= "chart1">
-			<div id="bar"></div>
-			</div>
-			<div>selection sort</div>
-			
-			<div id= "chart3">
-			<div id="bar"></div>
-			</div>
-			<div>quick sort</div>
-			
-			
-			
-			<label style="font-size : 30px">speed</label> 
-			<input type="number" min=50 id="speed">
-			<button class="mybutton" onclick="sort(arr)">start</button>
-			<button class="mybutton" id="stopbutton" onclick="stopStartFlip()">stop</button>
-			<button class="mybutton" onclick="reset()">reset</button>
-			
-		</center>
-		
-		
-		
-		
-		
-		
 
-		<script>
+
+
+
+		<div>bubble sort</div>
+
+		<div id="chart1">
+			<div id="bar"></div>
+		</div>
+		<div>selection sort</div>
+
+		<div id="chart3">
+			<div id="bar"></div>
+		</div>
+		<div>quick sort</div>
+
+
+
+		<label style="font-size : 30px">speed</label>
+		<input type="number" min=50 id="speed">
+		<button class="mybutton" onclick="sort(arr)">start</button>
+		<button class="mybutton" id="stopbutton" onclick="stopStartFlip()">stop</button>
+		<button class="mybutton" onclick="reset()">reset</button>
+
+	</center>
+
+
+
+
+
+
+
+	<script>
 		const sorted = "#CBFF65";
 		const unsorted = "#FE5448";
 		const maxheight = 300;
-    const scallingfactor = 1.2;
+		const scallingfactor = 1.2;
 		let arr = [];
 		let arrCopy = [];
 		let isSorting = false;
@@ -142,177 +149,209 @@
 		const chart = document.getElementById("chart");
 		const chart2 = document.getElementById("chart1");
 		const chart3 = document.getElementById("chart3");
-		
-	
+
+		let sorted_arr = [];
+
 		let arrCopy2 = [];
 		let arrCopy3 = [];
 		function gaussianRandom(mean = 0, stdDev = 1) {
-    let u = 1 - Math.random(); // Subtract from 1 to avoid log(0)
-    let v = Math.random();
-    let z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-    return z * stdDev + mean;
-}
-		function generateGaussianArray(size, mean = 50, stdDev = 10) {
-				let arr = [];
-				for (let i = 0; i < size; i++) {
-						arr.push(Math.round(gaussianRandom(mean, stdDev)));
-				}
-				return arr;
+			let u = 1 - Math.random(); // Subtract from 1 to avoid log(0)
+			let v = Math.random();
+			let z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+			return z * stdDev + mean;
 		}
-		
-		function generate(){
+		function generateGaussianArray(size, mean = 50, stdDev = 10) {
+			let arr = [];
+			for (let i = 0; i < size; i++) {
+				arr.push(Math.round(gaussianRandom(mean, stdDev)));
+			}
+			return arr;
+		}
+
+		function generate() {
 			const numberOfElements = parseInt(document.getElementById("numberofelements").value);
 			const min = parseInt(document.getElementById("min").value);
 			const max = parseInt(document.getElementById("max").value);
 			console.log(numberOfElements + ", " + min + ", " + max);
 			if (min < max) {
-				//arr = generateRandomArray(numberOfElements, min, max);
-				arr = generateGaussianArray(numberOfElements);
+				arr = generateRandomArray(numberOfElements, min, max);
+				//arr = generateGaussianArray(numberOfElements);
 				console.log(...arr);
 				arrCopy = [...arr];
 				arrCopy2 = [...arr];
 				arrCopy3 = [...arr];
-				renderChart(chart,arrCopy);
-				renderChart(chart2,arrCopy2);
-				renderChart(chart3,arrCopy3);
+				renderChart(chart, arrCopy);
+				renderChart(chart2, arrCopy2);
+				renderChart(chart3, arrCopy3);
 			} else {
 				alert("Minimum value must be smaller than maximum value");
 			}
 		}
 
-		
-		function generateRandomArray(N, min, max){
+
+		function generateRandomArray(N, min, max) {
 			const arr = [];
-			for (let i = 0; i < N; i++){
+			for (let i = 0; i < N; i++) {
 				const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 				arr.push(randomNumber);
 			}
-			
+
 			return arr;
 		}
-		
-		function renderChart(chart_, arr, left = -1, right=-1){
+
+		function renderChart(chart_, arr, left = -1, right = -1) {
 			chart_.innerHTML = "";
 			for (let i = 0; i < arr.length; i++) {
 				const bar = document.createElement("div");
 				bar.className = "bar";
-				bar.style.height = `${(arr[i]/(Math.max(...arr)*scallingfactor)) * maxheight}px`;
-				bar.style.width = `${Math.max(((chart.clientWidth - 4*arr.length) / arr.length), 2)}px`;
-				if( i >= left && i <= right){
+				bar.style.height = `${(arr[i] / (Math.max(...arr) * scallingfactor)) * maxheight}px`;
+				bar.style.width = `${Math.max(((chart.clientWidth - 4 * arr.length) / arr.length), 2)}px`;
+				if (i >= left && i <= right) {
 					bar.style.backgroundColor = sorted;
-				}else{
+				} else {
 					bar.style.backgroundColor = unsorted;
-				
+
 				}
 				chart_.appendChild(bar);
 			}
-		
+
 		}
-		
-		
-		async function sort(){
-			let n = arr.length-1;
+
+
+		async function sort() {
+			let n = arr.length - 1;
 			if (isSorting == false) {
 				isSorting = true;
 				sort_(arr);
 				selectionSort(arrCopy2);
-				quickSort(arrCopy3, 0,n);
-				
-				
-				
+				quickSort(arrCopy3, 0, n).then(() => {
+					renderChartforQuickSort(arrCopy3, chart3, sorted_arr);
+					console.log(...arrCopy3);
+
+				});
+
+
+
 				isSorting = false;
-			}else{
+			} else {
 				alert("sorting is ongoing!");
 			}
 		}
-		async function sort_(){
+		async function sort_() {
 			let n = arr.length;
 			let speed = document.getElementById("speed").value;
-			
-			while (n-- > 0 && !isstopping){
-					for(let i = 0; i < n; i++){
-					if(arr[i] > arr[i+1]){
-						let temp = arr[i];
-						arr[i] = arr[i+1];
-						arr[i+1] = temp;
-						
-						}
-						
-					}
-					renderChart(chart, arr, n, arr.length);
-					await new Promise(resolve => setTimeout(resolve, 2));
-					
-					
-			}
-			
-		}
-		function reset(){
-				isSorting = false;
-				arr = [...arrCopy];
-				arrCopy2 = [...arrCopy];
-				arrCopy3 = [...arrCopy3];
-				renderChart(chart, arr);
-				renderChart(chart2, arr);
-				renderChart(chart3, arr);
-		}
-		
-		async function selectionSort(arr){
-            let n = arr.length;
-            for (let i = 0; i < n; i++){
-                let min_index = i;
-                for (let j = i+1; j < n; j++){
-                    if(arr[min_index] > arr[j]){
-                        min_index = j;
-												
-                    }
-                }
-								renderChart(chart2, arr, 0,i);
-								await new Promise(resolve => setTimeout(resolve, 2));
 
-                if (min_index != i){
-                    let temp = arr[i];
-                    arr[i] = arr[min_index];
-                    arr[min_index] = temp;
-										
-										
-                }
-               
-                }
-        }
-		
-        function findpivot(arr, low, high){
-					
-					if (low <= high){
-					let pivotIndex = low;
-					let i = low + 1;
-					let j = high;
-					while (i < j){
-						
-						while(arr[pivotIndex] >= arr[i] && i <= high) i++;
-						while(arr[pivotIndex] <=arr[j] && j>=low+1) j--;
-						if (i < j) [arr[i], arr[j]] = [arr[j], arr[i]];
+			while (n-- > 0 && !isstopping) {
+				for (let i = 0; i < n; i++) {
+					if (arr[i] > arr[i + 1]) {
+						let temp = arr[i];
+						arr[i] = arr[i + 1];
+						arr[i + 1] = temp;
+
 					}
-					if (pivotIndex < j)[arr[pivotIndex], arr[j]] = [arr[j], arr[pivotIndex]];
-					return j;
-					
+
+				}
+				renderChart(chart, arr, n, arr.length);
+				await new Promise(resolve => setTimeout(resolve, 2 / speed));
+
+
+			}
+
+		}
+		function reset() {
+			isSorting = false;
+			arr = [...arrCopy];
+			sorted_arr = [];
+			arrCopy2 = [...arrCopy];
+			arrCopy3 = [...arrCopy3];
+			renderChart(chart, arr);
+			renderChart(chart2, arr);
+			renderChart(chart3, arr);
+		}
+
+		async function selectionSort(arr) {
+			let n = arr.length;
+			for (let i = 0; i < n; i++) {
+				let min_index = i;
+				for (let j = i + 1; j < n; j++) {
+					if (arr[min_index] > arr[j]) {
+						min_index = j;
+
 					}
 				}
-				 async function quickSort(arr, low, high){
-					
-					if (low < high){
-							let pivot = findpivot(arr, low, high);
-							
-							
-							
-							await quickSort(arr, low, pivot-1);
-							await quickSort(arr, pivot+1, high);
-						
-					}
-					
-					renderChart(chart3, arr);
-					await new Promise (resolve => setTimeout(resolve, 2));
+				renderChart(chart2, arr, 0, i);
+				await new Promise(resolve => setTimeout(resolve, 2 / speed));
+
+				if (min_index != i) {
+					let temp = arr[i];
+					arr[i] = arr[min_index];
+					arr[min_index] = temp;
+
+
 				}
-		
-		</script>
-	</body>
+
+			}
+		}
+
+		function findpivot(arr, low, high) {
+			let pivotIndex = low;
+			let pivotValue = arr[pivotIndex];
+			let i = low + 1;
+			let j = high;
+			while (i <= j) {
+				while (i <= high && arr[i] <= pivotValue) i++;
+				while (j >= low + 1 && arr[j] > pivotValue) j--;
+				if (i < j) [arr[i], arr[j]] = [arr[j], arr[i]];
+			}
+			[arr[pivotIndex], arr[j]] = [arr[j], arr[pivotIndex]];
+			console.log(j);
+			return j;
+		}
+		async function quickSort(arr, low, high) {
+
+			if (low <= high) {
+				let pivot = findpivot(arr, low, high);
+				console.log(pivot);
+				sorted_arr.push(pivot);
+
+				await quickSort(arr, low, pivot - 1);
+				await quickSort(arr, pivot + 1, high);
+				if (low === high) {
+					renderChartforQuickSort(arr, chart3, sorted_arr);
+					await new Promise(resolve => setTimeout(resolve, 2 / speed));
+				}
+			}
+
+			//renderChart(chart3, arr);
+
+		}
+
+		function renderChartforQuickSort(arr, chart, sorted_arr) {
+
+			chart.innerHTML = "";
+			for (let i = 0; i < arr.length; i++) {
+				const bar = document.createElement("div");
+				bar.className = "bar";
+				bar.style.height = `${(arr[i] / (Math.max(...arr) * scallingfactor)) * maxheight}px`;
+				bar.style.width = `${Math.max(((chart.clientWidth - 4 * arr.length) / arr.length), 2)}px`;
+
+				if (sorted_arr.includes(i)) {
+					bar.style.backgroundColor = sorted;
+				} else {
+					bar.style.backgroundColor = unsorted;
+				}
+				//if( i >= left && i <= right){
+				//bar.style.backgroundColor = sorted;
+				//}else{
+				//bar.style.backgroundColor = unsorted;
+
+				//}
+				chart.appendChild(bar);
+			}
+
+		}
+
+	</script>
+</body>
+
 </html>
