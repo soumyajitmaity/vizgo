@@ -122,10 +122,10 @@
 
 
 
-		<label style="font-size : 30px">speed</label>
-		<input type="number" min=50 id="speed">
+		
+		
 		<button class="mybutton" onclick="sort(arr)">start</button>
-		<button class="mybutton" id="stopbutton" onclick="stopStartFlip()">stop</button>
+		
 		<button class="mybutton" onclick="reset()">reset</button>
 
 	</center>
@@ -226,7 +226,7 @@
 		}
 		async function sort_() {
 			let n = arr.length;
-			let speed = document.getElementById("speed").value;
+			
 
 			while (n-- > 0 && !isstopping) {
 				for (let i = 0; i < n; i++) {
@@ -239,7 +239,7 @@
 
 				}
 				renderChart(chart, arr, n, arr.length);
-				await new Promise(resolve => setTimeout(resolve, 2 / speed));
+				await new Promise(resolve => setTimeout(resolve, 2));
 
 
 			}
@@ -267,7 +267,7 @@
 					}
 				}
 				renderChart(chart2, arr, 0, i);
-				await new Promise(resolve => setTimeout(resolve, 2 / speed));
+				await new Promise(resolve => setTimeout(resolve, 2 ));
 
 				if (min_index != i) {
 					let temp = arr[i];
@@ -305,7 +305,7 @@
 				await quickSort(arr, pivot + 1, high);
 				if (low === high) {
 					renderChartforQuickSort(arr, chart3, sorted_arr);
-					await new Promise(resolve => setTimeout(resolve, 2 / speed));
+					await new Promise(resolve => setTimeout(resolve, 2 ));
 				}
 			}
 
